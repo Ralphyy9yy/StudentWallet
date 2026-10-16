@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "StudentWallet",
+    "slug": "StudentWallet",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "studentwallet",
+    "userInterfaceStyle": "light",
+    "platforms": ["android"],
+    "android": {
+      "package": "com.studentwallet.app",
+      "allowBackup": false,
+      "blockedPermissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.VIBRATE"
+      ],
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "server",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "./plugins/withLocalOnlyData.js",
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#FAFAF7",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 76
+        }
+      ],
+      "@react-native-community/datetimepicker"
+    ],
+    "updates": { "enabled": false, "checkAutomatically": "NEVER" },
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}

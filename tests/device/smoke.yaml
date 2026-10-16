@@ -1,0 +1,29 @@
+appId: com.studentwallet.app
+---
+# Use ONLY an isolated test install: clearState deletes its previous wallet.
+- launchApp:
+    clearState: true
+- scrollUntilVisible:
+    element: "Allowance amount (PHP)"
+- tapOn: "Allowance amount (PHP)"
+- inputText: "1500.00"
+- hideKeyboard
+- scrollUntilVisible:
+    element: "Create allowance"
+- tapOn: "Create allowance"
+- assertVisible: "Your money, clearly."
+- scrollUntilVisible:
+    element: "Add expense"
+- tapOn: "Add expense"
+- tapOn: "Amount (PHP)"
+- inputText: "50.00"
+- hideKeyboard
+- scrollUntilVisible:
+    element: "Save transaction"
+- tapOn: "Save transaction"
+- assertVisible: "Your money, clearly."
+- stopApp
+- launchApp
+- assertVisible: "Your money, clearly."
+- tapOn: "Transactions"
+- assertVisible: "Expenses"
