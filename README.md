@@ -2,6 +2,12 @@
 
 An Android budgeting app for students, built with Expo SDK 58, React Native, strict TypeScript, Expo Router, and SQLite. The installed app uses local assets and storage, with no login, backend, analytics, or required remote services. Hardware verification of the standalone offline guarantee remains a release gate.
 
+## UI preview
+
+![StudentWallet UI preview: daily spending guide, expense entry with category chips, and transaction history](docs/images/ui-preview.png)
+
+Illustrated preview of the current interface using fictional demo data; not a device screenshot. [View scalable artwork](docs/images/ui-preview.svg).
+
 ## Setup
 
 Use Node 22.14 or newer, npm, and Android Studio/SDK for local Android builds. The exact resolved dependency versions are in [docs/DEPENDENCIES.md](docs/DEPENDENCIES.md); `package-lock.json` fixes the dependency tree.

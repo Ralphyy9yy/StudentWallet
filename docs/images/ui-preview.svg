@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1010" viewBox="0 0 1200 1010">
+  <defs>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #17251D; }
+      .muted { fill: #617067; }
+      .white { fill: #FFFFFF; }
+      .soft { fill: #D7F5DF; }
+      .green { fill: #166534; }
+      .danger { fill: #B42318; }
+      .title { font-size: 25px; font-weight: 700; }
+      .heading { font-size: 17px; font-weight: 700; }
+      .body { font-size: 14px; }
+      .small { font-size: 12px; }
+      .tiny { font-size: 10px; }
+      .button { font-size: 14px; font-weight: 700; }
+      .money { font-size: 24px; font-weight: 700; }
+      .line { stroke: #DFE5DF; stroke-width: 1; }
+    </style>
+    <g id="shell">
+      <rect width="344" height="750" rx="34" fill="#17251D"/>
+      <rect x="7" y="7" width="330" height="736" rx="28" fill="#FAFAF7"/>
+      <text x="25" y="34" class="small" font-weight="700">9:41</text>
+      <path d="M285 25h5v7h-5zm8-3h5v10h-5zm8-3h5v13h-5z" fill="#17251D"/>
+      <rect x="311" y="21" width="14" height="10" rx="2" fill="none" stroke="#17251D"/>
+      <path d="M314 24h8v4h-8z" fill="#17251D"/>
+      <rect x="125" y="727" width="94" height="4" rx="2" fill="#17251D"/>
+    </g>
+    <g id="tabs">
+      <rect x="7" y="657" width="330" height="62" fill="#FFFFFF"/>
+      <path d="M7 657h330" class="line"/>
+      <path d="m42 682 9-8 9 8v11H46v-11m4 11v-7h5v7" fill="none" stroke="#617067" stroke-width="1.6"/>
+      <path d="M122 675h14v19l-3-2-3 2-3-2-3 2-2-2zm3 6h8m-8 5h8" fill="none" stroke="#617067" stroke-width="1.6"/>
+      <path d="M204 677h19v16h-19zm13 5h7v6h-7" fill="none" stroke="#617067" stroke-width="1.6"/>
+      <circle cx="294" cy="684" r="8" fill="none" stroke="#617067" stroke-width="1.6"/>
+      <circle cx="294" cy="684" r="3" fill="none" stroke="#617067" stroke-width="1.6"/>
+      <text x="51" y="708" text-anchor="middle" class="tiny muted">Home</text>
+      <text x="130" y="708" text-anchor="middle" class="tiny muted">Transactions</text>
+      <text x="214" y="708" text-anchor="middle" class="tiny muted">Budget</text>
+      <text x="294" y="708" text-anchor="middle" class="tiny muted">Settings</text>
+    </g>
+    <g id="check">
+      <circle r="7" fill="#166534"/>
+      <path d="m-3 0 2 2 4-4" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    </g>
+  </defs>
+  <rect width="1200" height="1010" fill="#F1F4EF"/>
+  <text x="44" y="61" font-size="34" font-weight="700">StudentWallet</text>
+  <text x="44" y="93" font-size="17" class="muted">A clear daily guide. Quick expense entry. All your records, on your device.</text>
+
+  <!-- Home: values match the fictional demo backup on 16 October 2026. -->
+  <g transform="translate(44 136)">
+    <use href="#shell"/>
+    <text x="25" y="74" class="small muted" letter-spacing="1">DEMO ALLOWANCE</text>
+    <text x="25" y="109" class="title">Make today work.</text>
+    <rect x="23" y="131" width="298" height="141" rx="17" fill="#166534"/>
+    <text x="39" y="161" class="button soft">Daily spending guide</text>
+    <text x="39" y="211" font-size="42" font-weight="700" class="white">₱115.00</text>
+    <text x="39" y="239" class="small soft">For the rest of today</text>
+    <text x="39" y="256" class="small soft">10 days left, including today</text>
+    <rect x="23" y="287" width="298" height="204" rx="17" fill="#FFFFFF" stroke="#DFE5DF"/>
+    <text x="39" y="312" class="small muted">Total balance</text>
+    <text x="39" y="340" class="money">₱1,400.00</text>
+    <text x="39" y="370" class="small muted">Reserved for essentials</text>
+    <text x="39" y="398" class="money">₱250.00</text>
+    <text x="39" y="428" class="small muted">Flexible spending money</text>
+    <text x="39" y="456" class="money">₱1,150.00</text>
+    <text x="25" y="516" class="small muted">Your guide adjusts after each expense.</text>
+    <text x="25" y="536" class="small muted">Flexible spending today: ₱50.00</text>
+    <text x="25" y="566" class="heading">Recent activity</text>
+    <rect x="7" y="583" width="330" height="74" fill="#FAFAF7"/>
+    <path d="M7 583h330" class="line"/>
+    <rect x="23" y="597" width="298" height="46" rx="12" fill="#166534"/>
+    <text x="172" y="626" text-anchor="middle" class="button white">Add expense</text>
+    <use href="#tabs"/>
+    <path d="m42 682 9-8 9 8v11H46v-11" fill="none" stroke="#166534" stroke-width="2"/>
+    <rect x="30" y="697" width="42" height="17" fill="#FFFFFF"/>
+    <text x="51" y="708" text-anchor="middle" class="tiny green" font-weight="700">Home</text>
+  </g>
+
+  <!-- Expense form. -->
+  <g transform="translate(428 136)">
+    <use href="#shell"/>
+    <text x="25" y="86" class="title">Add expense</text>
+    <rect x="23" y="108" width="298" height="490" rx="17" fill="#FFFFFF" stroke="#DFE5DF"/>
+    <text x="39" y="136" class="button">Amount (PHP)</text>
+    <rect x="39" y="149" width="266" height="77" rx="12" fill="#FFFFFF" stroke="#DFE5DF"/>
+    <text x="53" y="201" font-size="36" class="green" font-weight="700">50.00</text>
+    <text x="39" y="255" class="button">Category</text>
+    <rect x="39" y="270" width="102" height="43" rx="21" fill="#DCFCE7" stroke="#166534"/>
+    <path d="M54 282v9m-3-9v5h6v-5m-3 9v9" fill="none" stroke="#166534" stroke-width="1.5"/>
+    <text x="66" y="297" class="small green" font-weight="700">Food</text>
+    <use href="#check" x="124" y="292"/>
+    <rect x="149" y="270" width="140" height="43" rx="21" fill="white" stroke="#DFE5DF"/>
+    <rect x="162" y="282" width="12" height="14" rx="3" fill="none" stroke="#617067" stroke-width="1.5"/>
+    <text x="181" y="297" class="small">Transport</text>
+    <rect x="39" y="322" width="87" height="43" rx="21" fill="white" stroke="#DFE5DF"/>
+    <text x="55" y="349" class="small">School</text>
+    <rect x="134" y="322" width="91" height="43" rx="21" fill="white" stroke="#DFE5DF"/>
+    <text x="148" y="349" class="small">Personal</text>
+    <rect x="233" y="322" width="72" height="43" rx="21" fill="white" stroke="#DFE5DF"/>
+    <text x="249" y="349" class="small">Other</text>
+    <text x="39" y="394" class="button">Pay from</text>
+    <rect x="39" y="409" width="160" height="43" rx="21" fill="#DCFCE7" stroke="#166534"/>
+    <text x="53" y="436" class="small green" font-weight="700">Flexible funds</text>
+    <use href="#check" x="183" y="431"/>
+    <text x="39" y="483" class="button">Transaction date</text>
+    <rect x="39" y="497" width="266" height="43" rx="12" fill="#DCFCE7" stroke="#A7D7B5"/>
+    <text x="172" y="524" text-anchor="middle" class="button green">2026-10-16</text>
+    <text x="39" y="572" class="small muted">Note (optional)</text>
+    <rect x="7" y="642" width="330" height="77" fill="#FAFAF7"/>
+    <path d="M7 642h330" class="line"/>
+    <rect x="23" y="657" width="298" height="48" rx="12" fill="#166534"/>
+    <text x="172" y="687" text-anchor="middle" class="button white">Save transaction</text>
+  </g>
+
+  <!-- History with compact toolbar and full transaction list space. -->
+  <g transform="translate(812 136)">
+    <use href="#shell"/>
+    <text x="25" y="86" class="title">Transactions</text>
+    <rect x="23" y="109" width="105" height="45" rx="12" fill="#DCFCE7" stroke="#A7D7B5"/>
+    <path d="M37 124h13m-11 5h9m-6 5h3" stroke="#166534" stroke-width="1.5"/>
+    <text x="58" y="137" class="button green">Filters</text>
+    <text x="234" y="137" class="button">Add top-up</text>
+    <text x="25" y="181" class="small muted">All activity · All periods · All categories</text>
+    <text x="25" y="219" class="button">2026-10-16</text>
+    <text x="25" y="257" class="button">Transport</text>
+    <text x="317" y="257" text-anchor="end" class="button danger">-₱50.00</text>
+    <text x="25" y="279" class="small muted">2026-10-16 · Transport</text>
+    <text x="25" y="298" class="small muted">Fictional commute</text>
+    <path d="M25 313h292" class="line"/>
+    <text x="25" y="346" class="button">Food</text>
+    <text x="317" y="346" text-anchor="end" class="button danger">-₱50.00</text>
+    <text x="25" y="368" class="small muted">2026-10-16 · Fictional lunch</text>
+    <path d="M25 387h292" class="line"/>
+    <rect x="7" y="583" width="330" height="74" fill="#FAFAF7"/>
+    <path d="M7 583h330" class="line"/>
+    <rect x="23" y="597" width="298" height="46" rx="12" fill="#166534"/>
+    <text x="172" y="626" text-anchor="middle" class="button white">Add expense</text>
+    <use href="#tabs"/>
+    <path d="M122 675h14v19l-3-2-3 2-3-2-3 2-2-2z" fill="none" stroke="#166534" stroke-width="2"/>
+    <rect x="91" y="697" width="78" height="17" fill="#FFFFFF"/>
+    <text x="130" y="708" text-anchor="middle" class="tiny green" font-weight="700">Transactions</text>
+  </g>
+  <text x="216" y="922" text-anchor="middle" class="heading">Your daily guide</text>
+  <text x="600" y="922" text-anchor="middle" class="heading">Fast expense entry</text>
+  <text x="984" y="922" text-anchor="middle" class="heading">Clear transaction history</text>
+  <text x="600" y="974" text-anchor="middle" font-size="13" class="muted">Illustrated UI preview · Fictional demo data · Not a device screenshot</text>
+</svg>
