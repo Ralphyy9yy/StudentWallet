@@ -53,6 +53,8 @@ Charts, reminders, dark mode, purchase simulation, custom-category management, a
 
 ## Architecture and integrity
 
+Home highlights the adjusting daily guide, with a fixed Add expense action. Expense entry uses icon category chips and a fixed Save action. History filters open in a dismissible sheet and apply together; reserve editing and release actions live in each reserve's options menu. The wallet mark is authored in `assets/branding/wallet.svg`; run `npm run generate:branding` to regenerate the bundled icon and splash PNGs. A new APK build is needed to install these native branding changes.
+
 `src/app/` contains thin Expo Router routes. `src/features/` owns onboarding, allowance, transaction, reserve, dashboard, settings, and backup screens/workflows. `src/domain/` contains pure money, date, budget, command, and backup validation. `src/db/` owns parameterized SQL, migrations, and the serialized operation queue. `src/ui/` supplies system-font tokens, shared controls, native date fields, safe-area/keyboard handling, and confirmation helpers.
 
 SQLite is the source of truth. Money is stored as integer centavos; parsing and formatting retain exact cents even at the supported upper bound. Intermediate financial arithmetic uses integers/BigInt and rejects unsafe aggregates. Dates are local `YYYY-MM-DD`; creation/update timestamps are UTC. Inclusive day counts use calendar ordinals, avoiding daylight-saving duration errors.

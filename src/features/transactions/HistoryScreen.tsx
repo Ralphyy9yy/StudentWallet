@@ -1,6 +1,8 @@
 import { router } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Alert, View } from "react-native";
+import { HistoryFilters } from "./HistoryFilters";
+import { colors } from "@/ui/tokens";
 import { listHistory } from "@/db/database";
 import type { WalletTransaction } from "@/domain/models";
 import { TransactionRow } from "@/features/transactions/TransactionRow";
@@ -14,6 +16,9 @@ export default function Transactions() {
     [rows, setRows] = useState<WalletTransaction[]>([]),
     [busy, setBusy] = useState(false),
     [more, setMore] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
+  const activeCount =
+    Number(filter !== "all") + Number(!!periodId) + Number(!!categoryId);
   const generation = useRef(0);
   const load = useCallback(
     async (cursor?: { occurredOn: string; id: string }) => {
@@ -48,61 +53,60 @@ export default function Transactions() {
     router.push(`/transactions/${t.id}`);
   }
   return (
-    <Screen>
+    <Screen
+      footer={
+        <Button
+          title="Add expense"
+          onPress={() => router.push("/transactions/new")}
+        />
+      }
+    >
       <AppText variant="title">Transactions</AppText>
-      <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
-        {(["all", "expense", "top_up"] as const).map((x) => (
-          <Button
-            key={x}
-            title={
-              x === "all" ? "All" : x === "expense" ? "Expenses" : "Top-ups"
-            }
-            variant={filter === x ? "primary" : "secondary"}
-            onPress={() => setFilter(x)}
-          />
-        ))}
-      </View>
-      <AppText variant="label">Allowance period</AppText>
-      <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
+      <View
+        style={{
+          flexDirection: "row",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 8,
+        }}
+      >
         <Button
-          title="All periods"
-          variant={!periodId ? "primary" : "secondary"}
-          onPress={() => setPeriodId(undefined)}
+          title={activeCount ? `Filters (${activeCount})` : "Filters"}
+          variant="secondary"
+          onPress={() => setShowFilters(true)}
         />
-        {periods.map((p) => (
-          <Button
-            key={p.id}
-            title={p.name}
-            variant={periodId === p.id ? "primary" : "secondary"}
-            onPress={() => setPeriodId(p.id)}
-          />
-        ))}
-      </View>
-      <AppText variant="label">Category</AppText>
-      <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
         <Button
-          title="All categories"
-          variant={!categoryId ? "primary" : "secondary"}
-          onPress={() => setCategoryId(undefined)}
+          title="Add top-up"
+          variant="ghost"
+          onPress={() => router.push("/transactions/new?type=top_up")}
         />
-        {categories.map((c) => (
-          <Button
-            key={c.id}
-            title={c.name}
-            variant={categoryId === c.id ? "primary" : "secondary"}
-            onPress={() => setCategoryId(c.id)}
-          />
-        ))}
       </View>
-      <Button
-        title="Add expense"
-        onPress={() => router.push("/transactions/new")}
-      />
-      <Button
-        title="Add allowance top-up"
-        variant="secondary"
-        onPress={() => router.push("/transactions/new?type=top_up")}
-      />
+      <AppText variant="caption" style={{ color: colors.muted }}>
+        {[
+          filter === "all"
+            ? "All activity"
+            : filter === "expense"
+              ? "Expenses"
+              : "Top-ups",
+          periods.find((p) => p.id === periodId)?.name ?? "All periods",
+          categories.find((c) => c.id === categoryId)?.name ?? "All categories",
+        ].join(" · ")}
+      </AppText>
+      {showFilters && (
+        <HistoryFilters
+          initial={{ type: filter, periodId, categoryId }}
+          periods={periods}
+          categories={categories}
+          onClose={() => setShowFilters(false)}
+          onApply={(draft) => {
+            setFilter(draft.type);
+            setPeriodId(draft.periodId);
+            setCategoryId(draft.categoryId);
+            setShowFilters(false);
+          }}
+        />
+      )}
       {rows.map((t, i) => (
         <View key={t.id}>
           {(i === 0 || rows[i - 1].occurredOn !== t.occurredOn) && (

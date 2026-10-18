@@ -11,7 +11,7 @@ appId: com.studentwallet.app
 - scrollUntilVisible:
     element: "Create allowance"
 - tapOn: "Create allowance"
-- assertVisible: "Your money, clearly."
+- assertVisible: "Make today work."
 - scrollUntilVisible:
     element: "Add expense"
 - tapOn: "Add expense"
@@ -21,9 +21,10 @@ appId: com.studentwallet.app
 - scrollUntilVisible:
     element: "Save transaction"
 - tapOn: "Save transaction"
-- assertVisible: "Your money, clearly."
+- assertVisible: "Make today work."
 - stopApp
 - launchApp
-- assertVisible: "Your money, clearly."
+- assertVisible: "Make today work."
 - tapOn: "Transactions"
+- tapOn: "Filters"
 - assertVisible: "Expenses"

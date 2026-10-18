@@ -4,6 +4,7 @@ import { TransactionForm } from "@/features/transactions/TransactionForm";
 import { saveTransaction } from "@/db/database";
 import { useWallet } from "@/features/wallet/WalletContext";
 import { router } from "expo-router";
+jest.mock("@expo/vector-icons/Ionicons", () => () => null);
 jest.mock("@/db/database", () => ({ saveTransaction: jest.fn() }));
 jest.mock("@/features/wallet/WalletContext", () => ({ useWallet: jest.fn() }));
 jest.mock("expo-router", () => ({ router: { back: jest.fn() } }));
@@ -21,11 +22,12 @@ jest.mock("@/ui/components", () => {
   const real = jest.requireActual("@/ui/components");
   return {
     ...real,
-    Screen: ({ children }: any) =>
+    Screen: ({ children, footer }: any) =>
       require("react").createElement(
         require("react-native").View,
         null,
         children,
+        footer,
       ),
   };
 });

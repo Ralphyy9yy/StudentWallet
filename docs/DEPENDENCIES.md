@@ -36,6 +36,7 @@ Resolved direct versions from package-lock.json. Use `npm ci` to reproduce the d
 | jest-expo                              | 58.0.11                 | devDependencies |
 | prettier                               | 3.9.10                  | devDependencies |
 | react-test-renderer                    | 19.3.0                  | devDependencies |
+| sharp                                  | 0.35.5                  | devDependencies |
 | typescript                             | 6.0.3                   | devDependencies |
 
 Jest 29 matches Expo's compatibility check. The SDK 58 jest-expo watch plugin currently advertises a Jest 30 peer; CI uses `--runInBand`, and the installed preset passes the tests.

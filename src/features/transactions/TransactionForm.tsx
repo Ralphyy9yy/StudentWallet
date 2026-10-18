@@ -10,6 +10,9 @@ import type { WalletTransaction } from "@/domain/models";
 import { useWallet } from "@/features/wallet/WalletContext";
 import { AppText, Button, Card, Field, Screen } from "@/ui/components";
 import { withDeficitConfirmation } from "@/ui/confirmation";
+import { CategoryPicker } from "@/ui/CategoryPicker";
+import { ChoiceChip } from "@/ui/ChoiceChip";
+import { AmountInput } from "@/ui/AmountInput";
 export function TransactionForm({
   existing,
   type = "expense",
@@ -80,7 +83,15 @@ export function TransactionForm({
       </Screen>
     );
   return (
-    <Screen>
+    <Screen
+      footer={
+        <Button
+          title={saving ? "Saving..." : "Save transaction"}
+          disabled={saving}
+          onPress={submit}
+        />
+      }
+    >
       <AppText variant="title">
         {existing
           ? "Edit transaction"
@@ -89,47 +100,41 @@ export function TransactionForm({
             : "Add top-up"}
       </AppText>
       <Card>
-        <Field
-          autoFocus
-          label="Amount (PHP)"
-          value={amount}
-          onChangeText={setAmount}
-          keyboardType="decimal-pad"
-          placeholder="0.00"
-          editable={!saving}
-        />
+        <AmountInput value={amount} onChange={setAmount} disabled={saving} />
         {kind === "expense" && (
           <>
             <AppText variant="label">Category</AppText>
-            <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
-              {categories.map((c) => (
-                <Button
-                  key={c.id}
-                  title={`${category === c.id ? "Selected: " : ""}${c.name}`}
-                  variant={category === c.id ? "primary" : "secondary"}
-                  disabled={saving}
-                  onPress={() => setCategory(c.id)}
-                />
-              ))}
-            </View>
-            <AppText variant="label">Pay from</AppText>
-            <Button
-              title={`${reserve === null ? "Selected: " : ""}Flexible funds`}
-              variant={reserve === null ? "primary" : "secondary"}
+            <CategoryPicker
+              categories={categories}
+              value={category}
+              onChange={setCategory}
               disabled={saving}
-              onPress={() => setReserve(null)}
             />
-            {reserves
-              .filter((r) => !r.archivedAt || r.id === existing?.reserveId)
-              .map((r) => (
-                <Button
-                  key={r.id}
-                  title={`${reserve === r.id ? "Selected: " : ""}${r.name}${r.archivedAt ? " (archived)" : ""}`}
-                  variant={reserve === r.id ? "primary" : "secondary"}
-                  disabled={saving}
-                  onPress={() => setReserve(r.id)}
-                />
-              ))}
+            <AppText variant="label">Pay from</AppText>
+            <View
+              accessibilityRole="radiogroup"
+              accessibilityLabel="Pay from"
+              style={{ flexDirection: "row", flexWrap: "wrap", gap: 8 }}
+            >
+              <ChoiceChip
+                label="Flexible funds"
+                selected={reserve === null}
+                disabled={saving}
+                icon="wallet-outline"
+                onPress={() => setReserve(null)}
+              />
+              {reserves
+                .filter((r) => !r.archivedAt || r.id === existing?.reserveId)
+                .map((r) => (
+                  <ChoiceChip
+                    key={r.id}
+                    label={`${r.name}${r.archivedAt ? " (archived)" : ""}`}
+                    selected={reserve === r.id}
+                    disabled={saving}
+                    onPress={() => setReserve(r.id)}
+                  />
+                ))}
+            </View>
           </>
         )}
         <DateField
@@ -146,11 +151,6 @@ export function TransactionForm({
           maxLength={500}
           multiline
           editable={!saving}
-        />
-        <Button
-          title={saving ? "Saving..." : "Save transaction"}
-          disabled={saving}
-          onPress={submit}
         />
         <Button
           title="Cancel"

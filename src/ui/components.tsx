@@ -15,19 +15,28 @@ import {
   type TextStyle,
   type ViewStyle,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import { colors } from "./tokens";
 import { formatMoney } from "@/domain/money";
 export function Screen({
   children,
   scroll = true,
+  footer,
 }: {
   children: ReactNode;
   scroll?: boolean;
+  footer?: ReactNode;
 }) {
+  const insets = useSafeAreaInsets();
   const c = scroll ? (
     <ScrollView
-      contentContainerStyle={s.content}
+      contentContainerStyle={[
+        s.content,
+        { paddingBottom: Math.max(32, insets.bottom + 16) },
+      ]}
       keyboardShouldPersistTaps="handled"
     >
       {children}
@@ -42,6 +51,13 @@ export function Screen({
         behavior={Platform.OS === "ios" ? "padding" : undefined}
       >
         {c}
+        {footer && (
+          <View
+            style={[s.footer, { paddingBottom: Math.max(16, insets.bottom) }]}
+          >
+            {footer}
+          </View>
+        )}
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -124,6 +140,7 @@ export function Button({
 export function Field({
   label,
   error,
+  style,
   ...props
 }: TextInputProps & { label: string; error?: string }) {
   return (
@@ -136,6 +153,7 @@ export function Field({
           s.input,
           { paddingVertical: 12 },
           error && { borderColor: colors.danger },
+          style,
         ]}
         {...props}
       />
@@ -189,7 +207,14 @@ export function confirm(title: string, message: string, onConfirm: () => void) {
 }
 const s = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.background },
-  content: { padding: 16, paddingBottom: 100, gap: 16 },
+  content: { padding: 16, paddingBottom: 32, gap: 16 },
+  footer: {
+    padding: 16,
+    gap: 8,
+    backgroundColor: colors.background,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+  },
   text: { color: colors.text, fontSize: 16, lineHeight: 23 },
   body: {},
   title: { fontSize: 30, lineHeight: 36, fontWeight: "800" },
