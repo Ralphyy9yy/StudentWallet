@@ -30,6 +30,7 @@ type State = {
   budget: BudgetSummary | null;
   error: string | null;
   lastBackupExportAt: string | null;
+  displayName: string | null;
   revision: number;
   refresh: () => Promise<void>;
   selectPeriod: (id: string) => Promise<void>;
@@ -45,6 +46,7 @@ export function WalletProvider({ children }: PropsWithChildren) {
     [categories, setCategories] = useState<Category[]>([]),
     [error, setError] = useState<string | null>(null),
     [lastBackupExportAt, setLastExport] = useState<string | null>(null),
+    [displayName, setDisplayName] = useState<string | null>(null),
     [revision, setRevision] = useState(0),
     [today, setToday] = useState(todayLocal());
   const selectedId = useRef<string | undefined>(undefined);
@@ -64,6 +66,7 @@ export function WalletProvider({ children }: PropsWithChildren) {
       setReserves(data.reserves);
       setCategories(cats);
       setLastExport(data.lastBackupExportAt);
+      setDisplayName(data.displayName);
       setRevision((v) => v + 1);
     } catch (e) {
       if (request === generation.current)
@@ -121,6 +124,7 @@ export function WalletProvider({ children }: PropsWithChildren) {
         budget,
         error,
         lastBackupExportAt,
+        displayName,
         revision,
         refresh,
         selectPeriod,

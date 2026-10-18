@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Alert } from "react-native";
+import { Alert, Linking } from "react-native";
 import { router } from "expo-router";
 import {
   prepareBackup,
@@ -11,10 +11,11 @@ import { useWallet } from "@/features/wallet/WalletContext";
 import { AppText, Button, Card, Screen } from "@/ui/components";
 import { askConfirmation } from "@/ui/confirmation";
 import { colors } from "@/ui/tokens";
+import { APP_VERSION, GITHUB_URL } from "@/domain/app";
 export default function Settings() {
   const [busy, setBusy] = useState(false);
   const pending = useRef(false);
-  const { refresh, lastBackupExportAt } = useWallet();
+  const { refresh, lastBackupExportAt, displayName } = useWallet();
   async function run(work: () => Promise<void>) {
     if (pending.current) return;
     pending.current = true;
@@ -89,6 +90,28 @@ export default function Settings() {
     <Screen>
       <AppText variant="title">Settings</AppText>
       <Card>
+        <AppText variant="heading">Your name</AppText>
+        <AppText>{displayName ?? "No display name set"}</AppText>
+        <Button
+          title="Edit display name"
+          variant="secondary"
+          disabled={busy}
+          onPress={() => router.push("/settings/profile")}
+        />
+      </Card>
+      <Card>
+        <AppText variant="heading">New to StudentWallet?</AppText>
+        <AppText>
+          Learn how the daily spending guide, reserves, and backups work.
+        </AppText>
+        <Button
+          title="How it works"
+          variant="secondary"
+          disabled={busy}
+          onPress={() => router.push("/settings/help")}
+        />
+      </Card>
+      <Card>
         <AppText variant="heading">Your data stays local</AppText>
         <AppText style={{ color: colors.muted }}>
           App data may be lost if you uninstall the app, clear its storage, or
@@ -97,6 +120,22 @@ export default function Settings() {
       </Card>
       <Card>
         <AppText variant="heading">Backup & restore</AppText>
+        {!lastBackupExportAt && (
+          <Card
+            style={{
+              backgroundColor: colors.amberSoft,
+              borderColor: colors.amber,
+            }}
+          >
+            <AppText variant="label" style={{ color: colors.amber }}>
+              No backup saved yet
+            </AppText>
+            <AppText>
+              Save a backup to protect your records if this device is lost or
+              the app is removed. Sharing alone does not confirm a saved backup.
+            </AppText>
+          </Card>
+        )}
         <AppText>
           Backups are unencrypted files containing personal spending details.
           Choose a trusted local folder for offline access.
@@ -139,7 +178,27 @@ export default function Settings() {
           onPress={reset}
         />
       </Card>
-      <AppText variant="caption">StudentWallet 1.0.0</AppText>
+      <Card>
+        <AppText variant="heading">About StudentWallet</AppText>
+        <AppText>Version {APP_VERSION}</AppText>
+        <AppText style={{ color: colors.muted }}>
+          An offline allowance and expense tracker for students. No account is
+          needed.
+        </AppText>
+        <Button
+          title="View source on GitHub"
+          variant="secondary"
+          disabled={busy}
+          onPress={() =>
+            run(async () => {
+              await Linking.openURL(GITHUB_URL);
+            })
+          }
+        />
+        <AppText variant="caption" style={{ color: colors.muted }}>
+          Opens your browser. Internet access is needed to view GitHub.
+        </AppText>
+      </Card>
     </Screen>
   );
 }

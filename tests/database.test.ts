@@ -184,6 +184,20 @@ test("period overlap and dates excluding historical transactions are rejected", 
     }),
   ).rejects.toThrow("date");
 });
+test("display name saves, clears, survives reopening and is included in backup", async () => {
+  await repo.updateDisplayName("  Alex  ");
+  expect((await repo.getWalletSnapshot()).displayName).toBe("Alex");
+  expect((await repo.exportData()).data.settings?.display_name).toBe("Alex");
+  const adapter = (globalThis as any).__walletTestAdapter;
+  (globalThis as any).__reuseWalletAdapter = adapter;
+  jest.resetModules();
+  repo = require("@/db/database");
+  expect((await repo.getWalletSnapshot()).displayName).toBe("Alex");
+  await expect(repo.updateDisplayName("x".repeat(61))).rejects.toThrow();
+  expect((await repo.getWalletSnapshot()).displayName).toBe("Alex");
+  await repo.updateDisplayName("   ");
+  expect((await repo.getWalletSnapshot()).displayName).toBeNull();
+});
 test("v1 migration preserves financial records and advances version atomically", async () => {
   await repo.saveTransaction(await expense());
   const adapter = (globalThis as any).__walletTestAdapter;

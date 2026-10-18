@@ -54,6 +54,7 @@ The Android source project and Hermes bundle export were generated successfully.
 - History across all periods with type/category/period filters and 50-record keyset pagination.
 - Complete versioned JSON backup, folder-based save, separate sharing, validation/preview, and confirmed atomic replacement restore. An adapter accepts the initial development build's snake_case backups.
 - Last completed destination-write time, local-data disclosures, and two-step confirmed reset.
+- Settings includes an editable local display name, an offline How it works guide, a never-saved-backup reminder, and About/version details with an optional GitHub link.
 
 Charts, reminders, dark mode, purchase simulation, custom-category management, and cloud synchronization are outside this MVP.
 

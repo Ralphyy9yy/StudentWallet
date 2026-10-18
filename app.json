@@ -2,13 +2,15 @@
   "expo": {
     "name": "StudentWallet",
     "slug": "StudentWallet",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/branding/icon.png",
     "scheme": "studentwallet",
     "userInterfaceStyle": "light",
     "platforms": ["android"],
     "android": {
+      "icon": "./assets/branding/icon.png",
+      "versionCode": 2,
       "package": "com.studentwallet.app",
       "allowBackup": false,
       "blockedPermissions": [

@@ -16,6 +16,8 @@ import {
 import { todayLocal } from "@/domain/dates";
 import { createOperationQueue } from "./queue";
 import { transactionCommandSchema } from "@/domain/commands";
+import { displayNameSchema } from "@/domain/settings";
+import { APP_VERSION } from "@/domain/app";
 
 type Row = Record<string, any>;
 const enqueue = createOperationQueue();
@@ -258,8 +260,20 @@ export const getWalletSnapshot = (selectedId?: string) =>
       transactions: selected ? await transactions(database, selected.id) : [],
       reserves: selected ? await reserves(database, selected.id) : [],
       onboarded: !!settings?.onboarding_complete,
+      displayName: (settings?.display_name ?? null) as string | null,
       lastBackupExportAt: settings?.last_backup_export_at as string | null,
     };
+  });
+export const updateDisplayName = (name: string) =>
+  enqueue(async () => {
+    const value = displayNameSchema.parse(name);
+    const database = await db();
+    await atomic(database, async () => {
+      await database.runAsync(
+        "UPDATE settings SET display_name=? WHERE id=1",
+        value,
+      );
+    });
   });
 export const createPeriod = (
   input: {
@@ -647,7 +661,7 @@ export const exportData = () =>
       return {
         format: "studentwallet.backup",
         backupSchemaVersion: 1,
-        appVersion: "1.0.0",
+        appVersion: APP_VERSION,
         exportedAt: new Date().toISOString(),
         data: {
           allowancePeriods: await database.getAllAsync<Row>(
